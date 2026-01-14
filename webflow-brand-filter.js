@@ -149,11 +149,8 @@
       </div>
 
       <button class="brand-filter-clear" data-clear-filters>Clear All Filters</button>
-      <div class="brand-filter-results">
-        <span data-results-count>0</span> brands found
-      </div>
       <div class="brand-filter-no-results" data-no-results style="display: none;">
-        No brands match your selected filters. Try adjusting your criteria.
+        No brands match your selected filters.
       </div>
     `;
 
