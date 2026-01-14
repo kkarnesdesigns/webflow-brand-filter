@@ -88,11 +88,24 @@
   }
 
   function setup() {
+    console.log('Brand filter: setup() called');
+
     const filterContainer = document.querySelector(CONFIG.filterContainerSelector);
+    console.log('Brand filter: container found?', filterContainer);
+
+    if (!filterContainer) {
+      console.error('Brand filter: No element found with [data-brand-filters] attribute');
+      return;
+    }
+
+    console.log('Brand filter: container children count:', filterContainer.children.length);
 
     // Auto-generate filter UI if container exists but is empty
-    if (filterContainer && filterContainer.children.length === 0) {
+    if (filterContainer.children.length === 0) {
+      console.log('Brand filter: generating UI...');
       generateFilterUI(filterContainer);
+    } else {
+      console.log('Brand filter: container not empty, skipping UI generation');
     }
 
     // Attach event listeners to checkboxes
