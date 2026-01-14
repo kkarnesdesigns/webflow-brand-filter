@@ -61,11 +61,42 @@ On the **Collection List Wrapper** or page section:
 data-brand-filters (empty value) - Container where filter UI is generated
 ```
 
+#### Option A: Simple Fields (Option or Plain Text)
+
 On each **Collection Item**:
 ```
 data-brand-item (empty value) - Identifies filterable items
 data-industry="{Industry Field}" - Bind to CMS Industry field
 data-investment="{Investment Field}" - Bind to CMS Investment field
+```
+
+#### Option B: Multi-Reference Fields (Recommended)
+
+This approach allows brands to have MULTIPLE industries or investment levels.
+
+On each **Collection Item**:
+```
+data-brand-item (empty value) - Identifies filterable items
+```
+
+Inside each Collection Item, add **nested Collection Lists**:
+
+1. **Industry Categories** (nested Collection List referencing Brand Categories where Type = Industry)
+   - On each nested item's text element: `data-category-industry` (bind text to Category Name)
+
+2. **Investment Categories** (nested Collection List referencing Brand Categories where Type = Investment)
+   - On each nested item's text element: `data-category-investment` (bind text to Category Name)
+
+**To hide the nested lists visually** (but keep them for filtering):
+```css
+[data-category-industry],
+[data-category-investment] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
 ```
 
 ### Filter Logic
@@ -84,7 +115,10 @@ IF Industry selected AND Investment selected:
   → Show brands matching (ANY selected Industry) AND (ANY selected Investment)
 ```
 
-Within each category, multiple selections use **OR logic** (e.g., selecting "Food & Beverage" and "Automotive" shows brands in either industry).
+**Logic Details:**
+- **Between categories**: AND logic (must match both Industry AND Investment filters)
+- **Within each category**: OR logic (selecting "Food & Beverage" and "Automotive" shows brands in either)
+- **Multi-reference support**: A brand with multiple industries (e.g., "Food & Beverage" + "Entertainment") will match if ANY of its industries are selected
 
 ### JavaScript API
 

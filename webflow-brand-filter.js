@@ -2,14 +2,24 @@
  * Webflow Brand Filter
  * Filters CMS collection items by Industry and Investment using checkbox groups
  *
+ * SUPPORTS BOTH:
+ * - Simple fields (Option/Plain Text) via data attributes
+ * - Multi-reference fields via nested collection elements
+ *
  * SETUP INSTRUCTIONS:
- * 1. Add this script to your page (before </body> or in custom code)
- * 2. Add the CSS file for styling
- * 3. On each CMS collection item, add custom attributes:
+ *
+ * Option A: Simple Fields (Option or Plain Text)
+ * 1. On each CMS collection item, add custom attributes:
  *    - data-industry="Food & Beverage" (bind to Industry field)
  *    - data-investment="Under $250k" (bind to Investment field)
- * 4. Add data-brand-item attribute to each collection item wrapper
- * 5. Create the filter UI HTML (see example below) or use auto-generation
+ * 2. Add data-brand-item attribute to each collection item wrapper
+ *
+ * Option B: Multi-Reference Fields
+ * 1. Add data-brand-item attribute to each collection item wrapper
+ * 2. Inside each brand item, add nested Collection Lists for Industries and Investments
+ * 3. On each nested industry item, add: data-category-industry (bind text to category name)
+ * 4. On each nested investment item, add: data-category-investment (bind text to category name)
+ * 5. You can hide these nested lists with CSS if you don't want them visible
  */
 
 (function() {
@@ -24,6 +34,10 @@
     investmentFilterSelector: '[data-filter="investment"]',
     resultsCountSelector: '[data-results-count]',
     noResultsSelector: '[data-no-results]',
+
+    // Multi-reference selectors (nested elements inside each brand item)
+    multiRefIndustrySelector: '[data-category-industry]',
+    multiRefInvestmentSelector: '[data-category-investment]',
 
     // Animation
     animationDuration: 300,
@@ -169,6 +183,46 @@
   }
 
   /**
+   * Get industries for a brand item
+   * Supports both data-attribute and multi-reference approaches
+   */
+  function getItemIndustries(item) {
+    // First, check for simple data attribute
+    const dataAttr = item.getAttribute('data-industry');
+    if (dataAttr) {
+      return [dataAttr.trim()];
+    }
+
+    // Otherwise, look for multi-reference nested elements
+    const multiRefElements = item.querySelectorAll(CONFIG.multiRefIndustrySelector);
+    if (multiRefElements.length > 0) {
+      return Array.from(multiRefElements).map(el => el.textContent.trim());
+    }
+
+    return [];
+  }
+
+  /**
+   * Get investments for a brand item
+   * Supports both data-attribute and multi-reference approaches
+   */
+  function getItemInvestments(item) {
+    // First, check for simple data attribute
+    const dataAttr = item.getAttribute('data-investment');
+    if (dataAttr) {
+      return [dataAttr.trim()];
+    }
+
+    // Otherwise, look for multi-reference nested elements
+    const multiRefElements = item.querySelectorAll(CONFIG.multiRefInvestmentSelector);
+    if (multiRefElements.length > 0) {
+      return Array.from(multiRefElements).map(el => el.textContent.trim());
+    }
+
+    return [];
+  }
+
+  /**
    * Apply current filters to collection items
    */
   function applyFilters() {
@@ -176,14 +230,16 @@
     let visibleCount = 0;
 
     items.forEach(item => {
-      const itemIndustry = item.getAttribute('data-industry') || '';
-      const itemInvestment = item.getAttribute('data-investment') || '';
+      // Get all industries and investments for this item (supports multiple)
+      const itemIndustries = getItemIndustries(item);
+      const itemInvestments = getItemInvestments(item);
 
-      // Check if item matches active filters (AND logic)
+      // Check if item matches active filters (AND logic between categories)
+      // Within each category, use OR logic (item matches if ANY of its values match ANY selected filter)
       const matchesIndustry = activeFilters.industry.length === 0 ||
-                              activeFilters.industry.includes(itemIndustry);
+                              itemIndustries.some(ind => activeFilters.industry.includes(ind));
       const matchesInvestment = activeFilters.investment.length === 0 ||
-                                activeFilters.investment.includes(itemInvestment);
+                                itemInvestments.some(inv => activeFilters.investment.includes(inv));
 
       const isVisible = matchesIndustry && matchesInvestment;
 
