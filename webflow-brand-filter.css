@@ -1,0 +1,275 @@
+/**
+ * Webflow Brand Filter Styles
+ * Custom checkbox styling and filter UI
+ */
+
+/* ============================================
+   Filter Container
+   ============================================ */
+[data-brand-filters] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+}
+
+/* ============================================
+   Filter Groups
+   ============================================ */
+.brand-filter-group {
+  flex: 1;
+  min-width: 200px;
+}
+
+.brand-filter-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 1rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.brand-filter-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* ============================================
+   Custom Checkboxes
+   ============================================ */
+.brand-filter-checkbox {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+  user-select: none;
+}
+
+.brand-filter-checkbox:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Hide default checkbox */
+.brand-filter-checkbox input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Custom checkmark box */
+.brand-filter-checkmark {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  background-color: #fff;
+  border: 2px solid #d0d0d0;
+  border-radius: 4px;
+  margin-right: 0.75rem;
+  transition: all 0.2s ease;
+}
+
+/* Checkmark icon (hidden by default) */
+.brand-filter-checkmark::after {
+  content: '';
+  position: absolute;
+  display: none;
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* Checked state */
+.brand-filter-checkbox input:checked ~ .brand-filter-checkmark {
+  background-color: #2563eb;
+  border-color: #2563eb;
+}
+
+.brand-filter-checkbox input:checked ~ .brand-filter-checkmark::after {
+  display: block;
+}
+
+/* Focus state for accessibility */
+.brand-filter-checkbox input:focus ~ .brand-filter-checkmark {
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+/* Label text */
+.brand-filter-label {
+  font-size: 0.9375rem;
+  color: #444;
+  line-height: 1.4;
+}
+
+.brand-filter-checkbox input:checked ~ .brand-filter-label {
+  color: #2563eb;
+  font-weight: 500;
+}
+
+/* ============================================
+   Clear Button
+   ============================================ */
+.brand-filter-clear {
+  background: transparent;
+  border: 1px solid #d0d0d0;
+  color: #666;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+.brand-filter-clear:hover {
+  background: #fff;
+  border-color: #999;
+  color: #333;
+}
+
+/* ============================================
+   Results Count & No Results
+   ============================================ */
+.brand-filter-results {
+  display: flex;
+  align-items: center;
+  font-size: 0.875rem;
+  color: #666;
+  align-self: flex-end;
+  margin-left: auto;
+}
+
+.brand-filter-results [data-results-count] {
+  font-weight: 600;
+  color: #2563eb;
+  margin-right: 0.25rem;
+}
+
+.brand-filter-no-results {
+  width: 100%;
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+  font-size: 1rem;
+  background: #fff;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+/* ============================================
+   Collection Item Animations
+   ============================================ */
+[data-brand-item] {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+[data-brand-item].brand-filter-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+[data-brand-item].brand-filter-hidden {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+/* ============================================
+   Responsive Adjustments
+   ============================================ */
+@media (max-width: 768px) {
+  [data-brand-filters] {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .brand-filter-group {
+    width: 100%;
+  }
+
+  .brand-filter-results {
+    width: 100%;
+    justify-content: center;
+    margin-left: 0;
+    margin-top: 1rem;
+  }
+
+  .brand-filter-clear {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* ============================================
+   Alternative: Horizontal Checkbox Layout
+   Add class "brand-filter-horizontal" to options div
+   ============================================ */
+.brand-filter-options.brand-filter-horizontal {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.brand-filter-horizontal .brand-filter-checkbox {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+}
+
+.brand-filter-horizontal .brand-filter-checkbox:hover {
+  border-color: #2563eb;
+}
+
+.brand-filter-horizontal .brand-filter-checkbox input:checked ~ .brand-filter-label {
+  color: #2563eb;
+}
+
+/* ============================================
+   Alternative: Pill/Tag Style
+   Add class "brand-filter-pills" to options div
+   ============================================ */
+.brand-filter-options.brand-filter-pills {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.brand-filter-pills .brand-filter-checkbox {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 999px;
+  padding: 0.375rem 1rem;
+}
+
+.brand-filter-pills .brand-filter-checkmark {
+  display: none;
+}
+
+.brand-filter-pills .brand-filter-label {
+  margin: 0;
+}
+
+.brand-filter-pills .brand-filter-checkbox:hover {
+  border-color: #2563eb;
+  background: #f0f7ff;
+}
+
+.brand-filter-pills .brand-filter-checkbox input:checked ~ .brand-filter-label {
+  color: #fff;
+}
+
+.brand-filter-pills .brand-filter-checkbox:has(input:checked) {
+  background: #2563eb;
+  border-color: #2563eb;
+}
