@@ -40,7 +40,7 @@
 .brand-filter-options {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.25rem;
 }
 
 /* ============================================
@@ -119,7 +119,6 @@
 
 .brand-filter-checkbox input:checked ~ .brand-filter-label {
   color: #2563eb;
-  font-weight: 500;
 }
 
 /* ============================================
