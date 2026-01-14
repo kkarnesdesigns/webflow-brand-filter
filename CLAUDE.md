@@ -55,15 +55,20 @@ This means a brand with "Under $500k" will appear when either "Under $250K" or "
 | `webflow-brand-filter.js` | Core filtering logic, auto-generates UI, handles checkbox events |
 | `webflow-brand-filter.css` | Styling for checkboxes, filter container, animations |
 
-### Required CMS Fields in Webflow
+### Required CMS Setup in Webflow
 
-The Webflow CMS Collection for Brands needs these fields:
+**Brand Categories Collection** (for Industry):
+- Collection Name: Brand Categories
+- Fields: Category Name (plain text)
+- Import `brand-categories.csv` to populate
 
-1. **Industry** (Option or Plain Text field)
-   - Must match exactly one of the Industry options listed above
+**Brands Collection**:
+1. **Industry** (Multi-reference field → Brand Categories)
+   - Allows brands to have multiple industries
 
-2. **Investment** (Option or Plain Text field)
-   - Must match exactly one of the Investment options listed above
+2. **Investment** (Option field)
+   - Options: `Under $150k`, `Under $250k`, `Under $500k`, `Over $500k`
+   - These map to the 3 filter UI options (see mapping table above)
 
 ### Custom Attributes Setup
 
@@ -72,36 +77,20 @@ On the **Collection List Wrapper** or page section:
 data-brand-filters (empty value) - Container where filter UI is generated
 ```
 
-#### Option A: Simple Fields (Option or Plain Text)
-
 On each **Collection Item**:
 ```
 data-brand-item (empty value) - Identifies filterable items
-data-industry="{Industry Field}" - Bind to CMS Industry field
-data-investment="{Investment Field}" - Bind to CMS Investment field
+data-investment="{Investment Field}" - Bind to CMS Investment Option field
 ```
 
-#### Option B: Multi-Reference Fields (Recommended)
+**For Industry (Multi-Reference Field):**
 
-This approach allows brands to have MULTIPLE industries or investment levels.
+Inside each Collection Item, add a **nested Collection List** for Industries:
+- On each nested item's text element: `data-category-industry` (bind text to Category Name)
 
-On each **Collection Item**:
-```
-data-brand-item (empty value) - Identifies filterable items
-```
-
-Inside each Collection Item, add **nested Collection Lists**:
-
-1. **Industry Categories** (nested Collection List referencing Brand Categories where Type = Industry)
-   - On each nested item's text element: `data-category-industry` (bind text to Category Name)
-
-2. **Investment Categories** (nested Collection List referencing Brand Categories where Type = Investment)
-   - On each nested item's text element: `data-category-investment` (bind text to Category Name)
-
-**To hide the nested lists visually** (but keep them for filtering):
+**To hide the nested industry list visually** (but keep it for filtering):
 ```css
-[data-category-industry],
-[data-category-investment] {
+[data-category-industry] {
   position: absolute;
   width: 1px;
   height: 1px;
