@@ -25,16 +25,14 @@ This filter allows website visitors to filter a list of franchise/brand opportun
 - $500K+
 
 ### Investment Mapping (CMS → Filter)
-The CMS may store broader investment ranges. These map to the filter options as follows:
+The CMS stores specific ranges that map to the 3 filter UI options:
 
-| CMS Value | Matches Filter(s) |
-|-----------|-------------------|
-| Under $150k | Under $250K |
-| Under $250k | Under $250K |
-| Under $500k | Under $250K, $250K-$500K |
-| Over $500k | $500K+ |
-
-This means a brand with "Under $500k" will appear when either "Under $250K" or "$250K-$500K" is selected.
+| CMS Value | Matches Filter |
+|-----------|----------------|
+| Under $150K | Under $250K |
+| $150K-$250K | Under $250K |
+| $250K-$500K | $250K-$500K |
+| $500K + | $500K+ |
 
 ## Brand Data Mapping
 
@@ -67,8 +65,8 @@ This means a brand with "Under $500k" will appear when either "Under $250K" or "
    - Allows brands to have multiple industries
 
 2. **Investment** (Option field)
-   - Options: `Under $150k`, `Under $250k`, `Under $500k`, `Over $500k`
-   - These map to the 3 filter UI options (see mapping table above)
+   - Options: `Under $150K`, `$150K-$250K`, `$250K-$500K`, `$500K +`
+   - These map to the 3 filter UI options (see mapping table below)
 
 ### Custom Attributes Setup
 
