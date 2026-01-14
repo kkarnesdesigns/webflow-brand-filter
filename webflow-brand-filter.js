@@ -57,7 +57,7 @@
     investments: [
       "Under $250K",
       "$250K-$500K",
-      "$500K+"
+      "$500k+"
     ],
 
     // Maps CMS investment values to filter range(s) they fall within
@@ -65,7 +65,7 @@
       "Under $150K": ["Under $250K"],
       "$150K-$250K": ["Under $250K"],
       "$250K-$500K": ["$250K-$500K"],
-      "$500K+": ["$500K+"]
+      "$500k+": ["$500k+"]
     }
   };
 
