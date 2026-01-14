@@ -19,11 +19,22 @@ This filter allows website visitors to filter a list of franchise/brand opportun
 - Health & Wellness
 - Automotive
 
-### Investment Options
-- Over $500k
-- Under $500k
-- Under $250k
-- Under $150k
+### Investment Options (Filter UI)
+- Under $250K
+- $250K-$500K
+- $500K+
+
+### Investment Mapping (CMS → Filter)
+The CMS may store broader investment ranges. These map to the filter options as follows:
+
+| CMS Value | Matches Filter(s) |
+|-----------|-------------------|
+| Under $150k | Under $250K |
+| Under $250k | Under $250K |
+| Under $500k | Under $250K, $250K-$500K |
+| Over $500k | $500K+ |
+
+This means a brand with "Under $500k" will appear when either "Under $250K" or "$250K-$500K" is selected.
 
 ## Brand Data Mapping
 

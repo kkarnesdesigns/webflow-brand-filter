@@ -55,11 +55,18 @@
       "Automotive"
     ],
     investments: [
-      "Over $500k",
-      "Under $500k",
-      "Under $250k",
-      "Under $150k"
-    ]
+      "Under $250K",
+      "$250K-$500K",
+      "$500K+"
+    ],
+
+    // Maps CMS investment values to filter range(s) they fall within
+    investmentMapping: {
+      "Under $150k": ["Under $250K"],
+      "Under $250k": ["Under $250K"],
+      "Under $500k": ["Under $250K", "$250K-$500K"],
+      "Over $500k": ["$500K+"]
+    }
   };
 
   // State
@@ -223,6 +230,18 @@
   }
 
   /**
+   * Map a CMS investment value to the filter ranges it falls within
+   */
+  function mapInvestmentToRanges(cmsValue) {
+    // First check if it's already a filter range value
+    if (CONFIG.investments.includes(cmsValue)) {
+      return [cmsValue];
+    }
+    // Otherwise, look up in the mapping
+    return CONFIG.investmentMapping[cmsValue] || [];
+  }
+
+  /**
    * Apply current filters to collection items
    */
   function applyFilters() {
@@ -238,8 +257,13 @@
       // Within each category, use OR logic (item matches if ANY of its values match ANY selected filter)
       const matchesIndustry = activeFilters.industry.length === 0 ||
                               itemIndustries.some(ind => activeFilters.industry.includes(ind));
+
+      // For investment, map CMS values to filter ranges before checking
       const matchesInvestment = activeFilters.investment.length === 0 ||
-                                itemInvestments.some(inv => activeFilters.investment.includes(inv));
+                                itemInvestments.some(inv => {
+                                  const ranges = mapInvestmentToRanges(inv);
+                                  return ranges.some(range => activeFilters.investment.includes(range));
+                                });
 
       const isVisible = matchesIndustry && matchesInvestment;
 

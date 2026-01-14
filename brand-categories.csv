@@ -8,7 +8,6 @@ Pet Services,Industry
 Beauty,Industry
 Health & Wellness,Industry
 Automotive,Industry
-Over $500k,Investment
-Under $500k,Investment
-Under $250k,Investment
-Under $150k,Investment
+Under $250K,Investment
+$250K-$500K,Investment
+$500K+,Investment
