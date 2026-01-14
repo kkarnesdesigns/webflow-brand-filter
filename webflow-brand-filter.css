@@ -8,12 +8,16 @@
    ============================================ */
 [data-brand-filters] {
   display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
+  flex-direction: column;
+  gap: 1.5rem;
   padding: 1.5rem;
   background: #f8f9fa;
   border-radius: 12px;
   margin-bottom: 2rem;
+  align-self: flex-start;
+  height: fit-content;
+  position: sticky;
+  top: 1rem;
 }
 
 /* ============================================
