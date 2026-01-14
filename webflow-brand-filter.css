@@ -38,9 +38,9 @@
 }
 
 .brand-filter-options {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.25rem !important;
 }
 
 /* ============================================
@@ -112,13 +112,15 @@
 
 /* Label text */
 .brand-filter-label {
-  font-size: 0.9375rem;
-  color: #444;
-  line-height: 1.4;
+  font-size: 0.9375rem !important;
+  font-weight: 400 !important;
+  color: #444 !important;
+  line-height: 1.4 !important;
 }
 
 .brand-filter-checkbox input:checked ~ .brand-filter-label {
-  color: #2563eb;
+  color: #2563eb !important;
+  font-weight: 400 !important;
 }
 
 /* ============================================
