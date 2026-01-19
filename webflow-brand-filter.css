@@ -197,7 +197,6 @@
 @media (max-width: 768px) {
   [data-brand-filters] {
     flex-direction: column;
-    gap: 1.5rem;
   }
 
   .brand-filter-group {
@@ -224,7 +223,6 @@
 .brand-filter-options.brand-filter-horizontal {
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 0.5rem;
 }
 
 .brand-filter-horizontal .brand-filter-checkbox {
@@ -247,7 +245,6 @@
 .brand-filter-options.brand-filter-pills {
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 0.5rem;
 }
 
 .brand-filter-pills .brand-filter-checkbox {
